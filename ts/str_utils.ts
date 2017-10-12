@@ -27,9 +27,9 @@ export default class Formatter {
           i++;
           continue
         }
-        let form: string[] = format.slice(i + 1).match(/^(-?\d+)?(?:\.(\d+))?([sfdjp])/i);
+        let form: string[] = format.slice(i + 1).match(/^(-?\d+)?(?:\.(\d+))?([sfdijp])/i);
         if (form === null) {
-          throw "Invalid format";
+          throw "Invalid format: " + format.slice(i, i + 6);
         }
 
         if (param_index >= params.length) {
@@ -71,7 +71,7 @@ export default class Formatter {
       return JSON.stringify(param);
     } else if (typ == "p") {
       if (typeof param !== "number") {
-        throw "number expected!";
+        throw "number expected, got '" + param + "'";
       }
       format[3] = "f";
       if (second === undefined) {
@@ -80,12 +80,12 @@ export default class Formatter {
       return Formatter.format_single(format, param * 100) + "%";
     } else if (typ == "d" || typ == "i") {
       if (typeof param !== "number") {
-        throw "number expected!";
+        throw "number expected, got '" + param + "'";
       }
       let r = Math.floor(param).toString();
       if (second) {
         if (secondi < 0) {
-          throw "unsupported format character";
+          throw "second parameter is negativ! '" + x + "'";
         }
         r = r.padStart(secondi, "0");
       }
@@ -99,12 +99,12 @@ export default class Formatter {
       return r;
     } else if (typ == "f") {
       if (typeof param !== "number") {
-        throw "number expected!";
+        throw "number expected, got '" + param + "'";
       }
       let r = param.toFixed(6);
       if (second) {
         if (secondi < 0) {
-          throw "unsupported format character";
+          throw "second parameter is negativ! '" + x + "'";
         }
         r = param.toFixed(secondi);
       }
@@ -117,7 +117,7 @@ export default class Formatter {
 
       return r;
     } else {
-      throw "Unknown format"
+      throw "Unknown format, type: '" + typ + "'";
     }
   }
 }

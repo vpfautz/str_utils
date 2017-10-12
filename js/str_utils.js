@@ -54,9 +54,9 @@ var Formatter = function () {
                         i++;
                         continue;
                     }
-                    var form = format.slice(i + 1).match(/^(-?\d+)?(?:\.(\d+))?([sfdjp])/i);
+                    var form = format.slice(i + 1).match(/^(-?\d+)?(?:\.(\d+))?([sfdijp])/i);
                     if (form === null) {
-                        throw "Invalid format";
+                        throw "Invalid format: " + format.slice(i, i + 6);
                     }
                     if (param_index >= (arguments.length <= 1 ? 0 : arguments.length - 1)) {
                         throw "Too less params given!";
@@ -103,7 +103,7 @@ var Formatter = function () {
                 return JSON.stringify(param);
             } else if (typ == "p") {
                 if (typeof param !== "number") {
-                    throw "number expected!";
+                    throw "number expected, got '" + param + "'";
                 }
                 format[3] = "f";
                 if (second === undefined) {
@@ -112,12 +112,12 @@ var Formatter = function () {
                 return Formatter.format_single(format, param * 100) + "%";
             } else if (typ == "d" || typ == "i") {
                 if (typeof param !== "number") {
-                    throw "number expected!";
+                    throw "number expected, got '" + param + "'";
                 }
                 var _r = Math.floor(param).toString();
                 if (second) {
                     if (secondi < 0) {
-                        throw "unsupported format character";
+                        throw "second parameter is negativ! '" + x + "'";
                     }
                     _r = _r.padStart(secondi, "0");
                 }
@@ -129,12 +129,12 @@ var Formatter = function () {
                 return _r;
             } else if (typ == "f") {
                 if (typeof param !== "number") {
-                    throw "number expected!";
+                    throw "number expected, got '" + param + "'";
                 }
                 var _r2 = param.toFixed(6);
                 if (second) {
                     if (secondi < 0) {
-                        throw "unsupported format character";
+                        throw "second parameter is negativ! '" + x + "'";
                     }
                     _r2 = param.toFixed(secondi);
                 }
@@ -145,7 +145,7 @@ var Formatter = function () {
                 }
                 return _r2;
             } else {
-                throw "Unknown format";
+                throw "Unknown format, type: '" + typ + "'";
             }
         }
     }]);
