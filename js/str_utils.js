@@ -109,6 +109,12 @@ var Formatter = function () {
                 if (second === undefined) {
                     format[2] = "1";
                 }
+                if (first !== undefined && firsti > 0) {
+                    format[1] = (firsti - 1).toString();
+                    if (first.startsWith("0")) {
+                        format[1] = "0" + format[1];
+                    }
+                }
                 return Formatter.format_single(format, param * 100) + "%";
             } else if (typ == "d" || typ == "i") {
                 if (typeof param !== "number") {

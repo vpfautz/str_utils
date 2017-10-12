@@ -98,6 +98,9 @@ describe('Formatter', function () {
       assert.equal(fmt("%p", 0.5), "50.0%");
       assert.equal(fmt("%p", 0.1235), "12.3%");
       assert.equal(fmt("%p", 1), "100.0%");
+      assert.equal(fmt("%6p", 1), "100.0%");
+      assert.equal(fmt("%7p", 1), " 100.0%");
+      assert.equal(fmt("%07p", 1), "0100.0%");
       assert.equal(fmt("%.0p", 1), "100%");
     });
   });
