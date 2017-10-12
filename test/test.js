@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {fmt} = require("..").default;
+const { fmt } = require("..").default;
 
 
 describe('Formatter', function () {
@@ -81,6 +81,17 @@ describe('Formatter', function () {
     it('false formatting', function () {
       assert.throws(() => fmt("%.-03f", 1), "Invalid format");
       assert.throws(() => fmt("%.-3f", 1), "Invalid format");
+    });
+  });
+
+  describe('json', function () {
+    it('array', function () {
+      assert.equal(fmt("%j", [1, 2, 3]), "[1,2,3]");
+    });
+    it('obj', function () {
+      assert.equal(
+        fmt("%j", { n: "test", a: [1, 2, 3] }),
+        '{"n":"test","a":[1,2,3]}');
     });
   });
 });

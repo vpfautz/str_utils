@@ -33,7 +33,7 @@ var Formatter = function () {
                         i++;
                         continue;
                     }
-                    var form = format.slice(i + 1).match(/^(-?\d+)?(?:\.(\d+))?([sfd])/);
+                    var form = format.slice(i + 1).match(/^(-?\d+)?(?:\.(\d+))?([sfdj])/);
                     if (form === null) {
                         throw "Invalid format";
                     }
@@ -64,6 +64,7 @@ var Formatter = function () {
 
             var firsti = parseInt(first);
             var secondi = parseInt(second);
+            typ = typ.toLowerCase();
             if (typ == "s") {
                 var r = param.toString();
                 if (first === undefined) {
@@ -71,6 +72,8 @@ var Formatter = function () {
                 } else {
                     return pad(r, firsti);
                 }
+            } else if (typ == "j") {
+                return JSON.stringify(param);
             } else if (typ == "d" || typ == "i") {
                 if (typeof param !== "number") {
                     throw "number expected!";

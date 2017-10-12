@@ -13,7 +13,7 @@ export default class Formatter {
           i++;
           continue
         }
-        let form: string[] = format.slice(i + 1).match(/^(-?\d+)?(?:\.(\d+))?([sfd])/);
+        let form: string[] = format.slice(i + 1).match(/^(-?\d+)?(?:\.(\d+))?([sfdj])/);
         if (form === null) {
           throw "Invalid format";
         }
@@ -47,6 +47,8 @@ export default class Formatter {
       } else {
         return pad(r, firsti);
       }
+    } else if (typ == "j" ) {
+      return JSON.stringify(param);
     } else if (typ == "d" || typ == "i") {
       if (typeof param !== "number") {
         throw "number expected!";
