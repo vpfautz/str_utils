@@ -23,6 +23,12 @@ var Formatter = function () {
 
     _createClass(Formatter, null, [{
         key: "fmt",
+
+        /**
+         * Formats a string like in python.
+         * @param format Format, supported types are s,d,i,f,j
+         * @param params Parameters to insert in format
+         */
         value: function fmt(format) {
             var result = "";
             var param_index = 0;
@@ -37,6 +43,9 @@ var Formatter = function () {
                     if (form === null) {
                         throw "Invalid format";
                     }
+                    if (param_index >= (arguments.length <= 1 ? 0 : arguments.length - 1)) {
+                        throw "Too less params given!";
+                    }
                     var t = Formatter.format_single(form, arguments.length <= param_index + 1 ? undefined : arguments[param_index + 1]);
                     param_index++;
                     i += form[0].length;
@@ -44,6 +53,9 @@ var Formatter = function () {
                 } else {
                     result += format[i];
                 }
+            }
+            if (param_index < (arguments.length <= 1 ? 0 : arguments.length - 1)) {
+                throw "Too much params given!";
             }
             return result;
         }
@@ -118,16 +130,3 @@ var Formatter = function () {
 }();
 
 exports.default = Formatter;
-
-function l() {
-    for (var _len = arguments.length, a = Array(_len), _key = 0; _key < _len; _key++) {
-        a[_key] = arguments[_key];
-    }
-
-    console.log(a);
-}
-// l(Formatter.fmt("%12f", 1.5));
-// l(Formatter.fmt("%-5.2f", 1.5));
-// l(Formatter.fmt("%05.2f", 1.5));
-// l(Formatter.fmt("%-5s", "a"));
-l(Formatter.fmt("%03s", 1));

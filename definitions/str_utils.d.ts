@@ -1,4 +1,9 @@
 export default class Formatter {
+    /**
+     * Formats a string like in python.
+     * @param format Format, supported types are s,d,i,f,j
+     * @param params Parameters to insert in format
+     */
     static fmt(format: string, ...params: any[]): string;
     /**
      * Returns length of format indicator and formatted string.
