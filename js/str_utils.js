@@ -26,7 +26,7 @@ var Formatter = function () {
 
         /**
          * Formats and prints a string like in python.
-         * @param format Format, supported types are s,d,i,f,j
+         * @param format Format
          * @param params Parameters to insert in format
          */
         value: function printf(format) {
@@ -38,7 +38,7 @@ var Formatter = function () {
         }
         /**
          * Formats a string like in python.
-         * @param format Format, supported types are s,d,i,f,j
+         * @param format Format
          * @param params Parameters to insert in format
          */
 
@@ -54,7 +54,7 @@ var Formatter = function () {
                         i++;
                         continue;
                     }
-                    var form = format.slice(i + 1).match(/^(-?\d+)?(?:\.(\d+))?([sfdj])/);
+                    var form = format.slice(i + 1).match(/^(-?\d+)?(?:\.(\d+))?([sfdjp])/i);
                     if (form === null) {
                         throw "Invalid format";
                     }
@@ -101,6 +101,15 @@ var Formatter = function () {
                 }
             } else if (typ == "j") {
                 return JSON.stringify(param);
+            } else if (typ == "p") {
+                if (typeof param !== "number") {
+                    throw "number expected!";
+                }
+                format[3] = "f";
+                if (second === undefined) {
+                    format[2] = "1";
+                }
+                return Formatter.format_single(format, param * 100) + "%";
             } else if (typ == "d" || typ == "i") {
                 if (typeof param !== "number") {
                     throw "number expected!";

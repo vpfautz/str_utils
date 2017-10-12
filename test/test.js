@@ -83,7 +83,6 @@ describe('Formatter', function () {
       assert.throws(() => fmt("%.-3f", 1), "Invalid format");
     });
   });
-
   describe('json', function () {
     it('array', function () {
       assert.equal(fmt("%j", [1, 2, 3]), "[1,2,3]");
@@ -92,6 +91,14 @@ describe('Formatter', function () {
       assert.equal(
         fmt("%j", { n: "test", a: [1, 2, 3] }),
         '{"n":"test","a":[1,2,3]}');
+    });
+  });
+  describe('percentage', function () {
+    it('test', function () {
+      assert.equal(fmt("%p", 0.5), "50.0%");
+      assert.equal(fmt("%p", 0.1235), "12.3%");
+      assert.equal(fmt("%p", 1), "100.0%");
+      assert.equal(fmt("%.0p", 1), "100%");
     });
   });
 });

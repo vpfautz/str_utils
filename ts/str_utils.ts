@@ -5,7 +5,7 @@ function pad(s: string, n: number, padding = " "): string {
 export default class Formatter {
   /**
    * Formats and prints a string like in python.
-   * @param format Format, supported types are s,d,i,f,j
+   * @param format Format
    * @param params Parameters to insert in format
    */
   static printf(format: string, ...params: any[]) {
@@ -14,7 +14,7 @@ export default class Formatter {
 
   /**
    * Formats a string like in python.
-   * @param format Format, supported types are s,d,i,f,j
+   * @param format Format
    * @param params Parameters to insert in format
    */
   static fmt(format: string, ...params: any[]): string {
@@ -27,7 +27,7 @@ export default class Formatter {
           i++;
           continue
         }
-        let form: string[] = format.slice(i + 1).match(/^(-?\d+)?(?:\.(\d+))?([sfdj])/);
+        let form: string[] = format.slice(i + 1).match(/^(-?\d+)?(?:\.(\d+))?([sfdjp])/i);
         if (form === null) {
           throw "Invalid format";
         }
@@ -69,6 +69,15 @@ export default class Formatter {
       }
     } else if (typ == "j") {
       return JSON.stringify(param);
+    } else if (typ == "p") {
+      if (typeof param !== "number") {
+        throw "number expected!";
+      }
+      format[3] = "f";
+      if (second === undefined) {
+        format[2] = "1";
+      }
+      return Formatter.format_single(format, param * 100) + "%";
     } else if (typ == "d" || typ == "i") {
       if (typeof param !== "number") {
         throw "number expected!";
