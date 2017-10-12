@@ -22,13 +22,28 @@ var Formatter = function () {
     }
 
     _createClass(Formatter, null, [{
-        key: "fmt",
+        key: "printf",
 
+        /**
+         * Formats and prints a string like in python.
+         * @param format Format, supported types are s,d,i,f,j
+         * @param params Parameters to insert in format
+         */
+        value: function printf(format) {
+            for (var _len = arguments.length, params = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+                params[_key - 1] = arguments[_key];
+            }
+
+            console.log(Formatter.fmt.apply(Formatter, [format].concat(params)));
+        }
         /**
          * Formats a string like in python.
          * @param format Format, supported types are s,d,i,f,j
          * @param params Parameters to insert in format
          */
+
+    }, {
+        key: "fmt",
         value: function fmt(format) {
             var result = "";
             var param_index = 0;

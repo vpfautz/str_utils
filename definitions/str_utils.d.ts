@@ -1,5 +1,11 @@
 export default class Formatter {
     /**
+     * Formats and prints a string like in python.
+     * @param format Format, supported types are s,d,i,f,j
+     * @param params Parameters to insert in format
+     */
+    static printf(format: string, ...params: any[]): void;
+    /**
      * Formats a string like in python.
      * @param format Format, supported types are s,d,i,f,j
      * @param params Parameters to insert in format
