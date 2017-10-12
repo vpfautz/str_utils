@@ -1,7 +1,7 @@
 {
   "name": "str_utils",
   "version": "1.0.0",
-  "description": "Some functions to calculate chart studies.",
+  "description": "Some functions to format strings like in python.",
   "main": "js/str_utils.js",
   "typings": "definitions/str_utils",
   "scripts": {
@@ -19,19 +19,14 @@
   },
   "homepage": "https://github.com/vpfautz/str_utils#readme",
   "devDependencies": {
-    "babel": "^6.23.0",
-    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-cli": "^1.4.0",
     "gulp-typescript": "^3.2.2",
     "merge2": "^1.1.0",
-    "mocha": "^4.0.1",
-    "ts-node": "^3.3.0",
-    "typescript": "^2.5.2"
+    "typescript": "^2.5.2",
+    "mocha": "^4.0.1"
   }
 }
