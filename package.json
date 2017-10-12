@@ -2,6 +2,14 @@
   "name": "str_utils",
   "version": "1.0.0",
   "description": "Some functions to format strings like in python.",
+  "keywords": [
+    "string",
+    "format",
+    "python",
+    "replace",
+    "template",
+    "arguments"
+  ],
   "main": "js/str_utils.js",
   "typings": "definitions/str_utils",
   "scripts": {

@@ -5,7 +5,7 @@ Some functions to format strings like in python.
 ## Usage
 
 ```
-npm i --save str_utils
+npm install str_utils
 ```
 
 ## Build & Test
@@ -17,7 +17,7 @@ npm run test
 
 ## Example
 
-With typescript:
+With TypeScript:
 ```ts
 import { fmt } from "str_utils";
 
