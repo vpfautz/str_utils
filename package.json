@@ -1,6 +1,6 @@
 {
   "name": "str_utils",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Some functions to format strings like in python.",
   "keywords": [
     "string",
