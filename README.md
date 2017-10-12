@@ -8,6 +8,13 @@ Some functions to format strings like in python.
 npm i --save str_utils
 ```
 
+## Build & Test
+
+```
+npm run build
+npm run test
+```
+
 ## Example
 
 With typescript:
