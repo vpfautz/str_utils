@@ -38,6 +38,7 @@ export default class Formatter {
     let [x, first, second, typ] = format;
     let firsti = parseInt(first);
     let secondi = parseInt(second);
+    typ = typ.toLowerCase();
 
     if (typ == "s") {
       let r = param.toString();
