@@ -1,0 +1,10 @@
+{
+  "files": [
+    "./str_utils.ts"
+  ],
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "declaration": true,
+    "target": "es2017"
+  }
+}
