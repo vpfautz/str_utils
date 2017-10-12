@@ -3,6 +3,11 @@ function pad(s: string, n: number, padding = " "): string {
 }
 
 export default class Formatter {
+  /**
+   * Formats a string like in python.
+   * @param format Format, supported types are s,d,i,f,j
+   * @param params Parameters to insert in format
+   */
   static fmt(format: string, ...params: any[]): string {
     let result = "";
     let param_index = 0;
@@ -18,6 +23,9 @@ export default class Formatter {
           throw "Invalid format";
         }
 
+        if (param_index >= params.length) {
+          throw "Too less params given!";
+        }
         let t = Formatter.format_single(form, params[param_index]);
         param_index++;
         i += form[0].length;
@@ -25,6 +33,9 @@ export default class Formatter {
       } else {
         result += format[i];
       }
+    }
+    if (param_index < params.length) {
+      throw "Too much params given!";
     }
     return result;
   }
@@ -47,7 +58,7 @@ export default class Formatter {
       } else {
         return pad(r, firsti);
       }
-    } else if (typ == "j" ) {
+    } else if (typ == "j") {
       return JSON.stringify(param);
     } else if (typ == "d" || typ == "i") {
       if (typeof param !== "number") {
@@ -92,13 +103,3 @@ export default class Formatter {
     }
   }
 }
-
-function l(...a: any[]) {
-  console.log(a);
-}
-
-// l(Formatter.fmt("%12f", 1.5));
-// l(Formatter.fmt("%-5.2f", 1.5));
-// l(Formatter.fmt("%05.2f", 1.5));
-// l(Formatter.fmt("%-5s", "a"));
-l(Formatter.fmt("%03s", 1));
