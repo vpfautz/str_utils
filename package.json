@@ -1,6 +1,6 @@
 {
   "name": "str_utils",
-  "version": "1.0.8",
+  "version": "1.0.11",
   "description": "Some functions to format strings like in python.",
   "keywords": [
     "string",
@@ -14,7 +14,7 @@
   "typings": "definitions/str_utils",
   "scripts": {
     "build": "gulp",
-    "test": "mocha"
+    "test": "nyc mocha"
   },
   "author": "Victor Pfautz",
   "license": "MIT",
@@ -35,6 +35,7 @@
     "gulp-typescript": "^3.2.2",
     "merge2": "^1.1.0",
     "typescript": "^2.5.2",
-    "mocha": "^4.0.1"
+    "mocha": "^4.0.1",
+    "nyc": "^11.2.1"
   }
 }
