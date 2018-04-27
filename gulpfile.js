@@ -13,7 +13,7 @@ gulp.task('default', function () {
         tsResult.dts.pipe(gulp.dest('definitions')),
         tsResult.js
             .pipe(babel({
-                presets: ['es2015']
+                presets: ['env']
             }))
             .pipe(gulp.dest('js'))
     ]);
