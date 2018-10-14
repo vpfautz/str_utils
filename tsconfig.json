@@ -1,6 +1,6 @@
 {
   "files": [
-    "./str_utils.ts"
+    "./ts/str_utils.ts"
   ],
   "compilerOptions": {
     "noImplicitAny": true,

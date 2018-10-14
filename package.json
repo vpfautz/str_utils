@@ -37,8 +37,5 @@
     "mocha": "^4.1.0",
     "nyc": "^11.2.1",
     "typescript": "^2.8.3"
-  },
-  "dependencies": {
-    "@types/node": "^10.11.7"
   }
 }
