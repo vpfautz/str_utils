@@ -86,67 +86,79 @@ function annotateFormat(format) {
  */
 function format_single(format, param) {
     if (format.type == "s") {
-        var r = param.toString();
-        if (format.first === undefined) {
-            return r;
-        } else {
-            return pad(r, format.firsti);
-        }
+        return format_string(format, param);
     } else if (format.type == "j") {
         return JSON.stringify(param);
     } else if (format.type == "p") {
-        if (typeof param !== "number") {
-            throw "number expected, got '" + param + "'";
-        }
-        var newFormat = JSON.parse(JSON.stringify(format));
-        newFormat.type = "f";
-        if (format.second === undefined) {
-            newFormat.second = "1";
-            newFormat.secondi = 1;
-        }
-        if (format.first !== undefined && format.firsti > 0) {
-            newFormat.first = (format.firsti - 1).toString();
-            if (format.first.startsWith("0")) {
-                newFormat.first = "0" + newFormat.first;
-            }
-            newFormat.firsti = parseInt(newFormat.first);
-        }
-        return format_single(newFormat, param * 100) + "%";
+        return format_percent(format, param);
     } else if (format.type == "d" || format.type == "i") {
-        if (typeof param !== "number") {
-            throw "number expected, got '" + param + "'";
-        }
-        var _r = Math.floor(param).toString();
-        if (format.second) {
-            if (format.secondi < 0) {
-                throw "second parameter is negativ! '" + format.all + "'";
-            }
-            _r = _r.padStart(format.secondi, "0");
-        }
-        if (format.first) {
-            // negativ padding is always " "
-            var padding = format.first.startsWith("0") ? "0" : " ";
-            _r = pad(_r, format.firsti, padding);
-        }
-        return _r;
+        return format_integer(format, param);
     } else if (format.type == "f") {
-        if (typeof param !== "number") {
-            throw "number expected, got '" + param + "'";
-        }
-        var _r2 = param.toFixed(6);
-        if (format.second) {
-            if (format.secondi < 0) {
-                throw "second parameter is negativ! '" + format.all + "'";
-            }
-            _r2 = param.toFixed(format.secondi);
-        }
-        if (format.first) {
-            // negativ padding is always " "
-            var _padding = format.first.startsWith("0") ? "0" : " ";
-            _r2 = pad(_r2, format.firsti, _padding);
-        }
-        return _r2;
+        return format_float(format, param);
     } else {
         throw "Unknown format, type: '" + format.type + "'";
     }
+}
+function format_string(format, param) {
+    var r = param.toString();
+    if (format.first === undefined) {
+        return r;
+    } else {
+        return pad(r, format.firsti);
+    }
+}
+function format_percent(format, param) {
+    if (typeof param !== "number") {
+        throw "number expected, got '" + param + "'";
+    }
+    var newFormat = JSON.parse(JSON.stringify(format));
+    newFormat.type = "f";
+    if (format.second === undefined) {
+        newFormat.second = "1";
+        newFormat.secondi = 1;
+    }
+    if (format.first !== undefined && format.firsti > 0) {
+        newFormat.first = (format.firsti - 1).toString();
+        if (format.first.startsWith("0")) {
+            newFormat.first = "0" + newFormat.first;
+        }
+        newFormat.firsti = parseInt(newFormat.first);
+    }
+    return format_single(newFormat, param * 100) + "%";
+}
+function format_integer(format, param) {
+    if (typeof param !== "number") {
+        throw "number expected, got '" + param + "'";
+    }
+    var r = Math.floor(param).toString();
+    if (format.second) {
+        if (format.secondi < 0) {
+            throw "second parameter is negativ! '" + format.all + "'";
+        }
+        r = r.padStart(format.secondi, "0");
+    }
+    if (format.first) {
+        // negativ padding is always " "
+        var padding = format.first.startsWith("0") ? "0" : " ";
+        r = pad(r, format.firsti, padding);
+    }
+    return r;
+}
+function format_float(format, param) {
+    if (typeof param !== "number") {
+        throw "number expected, got '" + param + "'";
+    }
+    var r = param.toFixed(6);
+    if (format.second) {
+        if (format.secondi < 0) {
+            throw "second parameter is negativ! '" + format.all + "'";
+        }
+        r = param.toFixed(format.secondi);
+    }
+    if (format.first) {
+        // negativ padding is always " "
+        var padding = format.first.startsWith("0") ? "0" : " ";
+        r = pad(r, format.firsti, padding);
+    }
+    return r;
 }
