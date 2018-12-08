@@ -26,6 +26,7 @@ function pad(s, n) {
  * @param format Format
  * @param params Parameters to insert in format
  */
+/* istanbul ignore next */
 function printf(format) {
     for (var _len = arguments.length, params = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         params[_key - 1] = arguments[_key];
@@ -105,6 +106,7 @@ function format_single(format, param) {
         case "f":
             return format_float(format, param);
         default:
+            /* istanbul ignore next */
             throw "Unknown format, type: '" + format.type + "'";
     }
 }

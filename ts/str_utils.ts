@@ -10,6 +10,7 @@ function pad(s: string, n: number, padding = " "): string {
  * @param format Format
  * @param params Parameters to insert in format
  */
+/* istanbul ignore next */
 export function printf(format: string, ...params: any[]) {
   console.log(fmt(format, ...params));
 }
@@ -93,6 +94,7 @@ export function format_single(format: FormatType, param: any): string {
     case "f":
       return format_float(format, param);
     default:
+      /* istanbul ignore next */
       throw "Unknown format, type: '" + format.type + "'";
   }
 }
