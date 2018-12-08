@@ -26,7 +26,7 @@ console.log(fmt("%5d", 1));
 
 With JavaScript:
 ```js
-const { fmt } = require("str_utils").default;
+const { fmt } = require("str_utils");
 
 console.log(fmt("%5d", 1));
 ```
