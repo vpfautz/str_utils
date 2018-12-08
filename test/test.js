@@ -48,6 +48,9 @@ describe('Formatter', function () {
     });
   });
   describe('number pattern', function () {
+    it('wrong param type', function () {
+      assert.throws(() => fmt("%d", "adsf"), "number expected, got 'asdf'");
+    });
     it('one number', function () {
       assert.equal(fmt("%d", 1.5), "1");
       assert.equal(fmt("%d", 2), "2");
