@@ -85,18 +85,20 @@ function annotate_format(format) {
  * @param param
  */
 function format_single(format, param) {
-    if (format.type == "s") {
-        return format_string(format, param);
-    } else if (format.type == "j") {
-        return JSON.stringify(param);
-    } else if (format.type == "p") {
-        return format_percent(format, param);
-    } else if (format.type == "d" || format.type == "i") {
-        return format_integer(format, param);
-    } else if (format.type == "f") {
-        return format_float(format, param);
-    } else {
-        throw "Unknown format, type: '" + format.type + "'";
+    switch (format.type) {
+        case "s":
+            return format_string(format, param);
+        case "j":
+            return JSON.stringify(param);
+        case "p":
+            return format_percent(format, param);
+        case "d":
+        case "i":
+            return format_integer(format, param);
+        case "f":
+            return format_float(format, param);
+        default:
+            throw "Unknown format, type: '" + format.type + "'";
     }
 }
 function format_string(format, param) {
