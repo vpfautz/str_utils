@@ -34,7 +34,7 @@ export function fmt(format: string, ...params: any[]): string {
       if (param_index >= params.length) {
         throw "Too less params given!";
       }
-      let currFormat = annotateFormat(form);
+      let currFormat = annotate_format(form);
       let t = format_single(currFormat, params[param_index]);
       param_index++;
       i += currFormat.all.length;
@@ -58,7 +58,7 @@ type FormatType = {
   type: string,
 };
 
-function annotateFormat(format: string[]): FormatType {
+function annotate_format(format: string[]): FormatType {
   let [all, first, second, type] = format;
   const f = {
     all,

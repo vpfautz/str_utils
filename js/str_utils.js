@@ -48,7 +48,7 @@ function fmt(format) {
             if (param_index >= (arguments.length <= 1 ? 0 : arguments.length - 1)) {
                 throw "Too less params given!";
             }
-            var currFormat = annotateFormat(form);
+            var currFormat = annotate_format(form);
             var t = format_single(currFormat, arguments.length <= param_index + 1 ? undefined : arguments[param_index + 1]);
             param_index++;
             i += currFormat.all.length;
@@ -62,7 +62,7 @@ function fmt(format) {
     }
     return result;
 }
-function annotateFormat(format) {
+function annotate_format(format) {
     var _format = _slicedToArray(format, 4),
         all = _format[0],
         first = _format[1],
