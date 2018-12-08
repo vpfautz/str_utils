@@ -14,7 +14,7 @@ describe('Formatter', function () {
       assert.equal(fmt(""), "");
     });
     it('unknown type', function () {
-      assert.throws(() => fmt("%y"), "Unknown format, type: 'y'");
+      assert.throws(() => fmt("%y"), /^Invalid format/);
     });
     it('too much parameters should fail', function () {
       assert.throws(() => fmt("%d", 1, 2), /Too much params given!/);
@@ -55,12 +55,12 @@ describe('Formatter', function () {
       assert.equal(fmt("%.03s", 1), "1");
       assert.equal(fmt("%.3s", "a"), "a");
       assert.equal(fmt("%.03s", "a"), "a");
-      assert.throws(() => fmt("%.-03s", "a"), "Invalid format");
+      assert.throws(() => fmt("%.-03s", "a"), /^Invalid format/);
     });
   });
   describe('number pattern', function () {
     it('wrong param type', function () {
-      assert.throws(() => fmt("%d", "adsf"), "number expected, got 'asdf'");
+      assert.throws(() => fmt("%d", "adsf"), /^number expected/);
     });
     it('one number', function () {
       assert.equal(fmt("%d", 1.5), "1");
@@ -77,13 +77,13 @@ describe('Formatter', function () {
       assert.equal(fmt("%d %d", 1, 2), "1 2");
     });
     it('false formatting', function () {
-      assert.throws(() => fmt("%.-03d", 1), "Invalid format");
-      assert.throws(() => fmt("%.-3d", 1), "Invalid format");
+      assert.throws(() => fmt("%.-03d", 1), /Invalid format/);
+      assert.throws(() => fmt("%.-3d", 1), /Invalid format/);
     });
   });
   describe('float pattern', function () {
     it('wrong param type', function () {
-      assert.throws(() => fmt("%f", "adsf"), "number expected, got 'asdf'");
+      assert.throws(() => fmt("%f", "adsf"), /^number expected/);
     });
     it('one float', function () {
       assert.equal(fmt("%f", 1.5), "1.500000");
@@ -96,8 +96,8 @@ describe('Formatter', function () {
       assert.equal(fmt("%f %f", 1.4, 2), "1.400000 2.000000");
     });
     it('false formatting', function () {
-      assert.throws(() => fmt("%.-03f", 1), "Invalid format");
-      assert.throws(() => fmt("%.-3f", 1), "Invalid format");
+      assert.throws(() => fmt("%.-03f", 1), /Invalid format/);
+      assert.throws(() => fmt("%.-3f", 1), /Invalid format/);
     });
   });
   describe('json', function () {
@@ -112,7 +112,7 @@ describe('Formatter', function () {
   });
   describe('percentage', function () {
     it('wrong param type', function () {
-      assert.throws(() => fmt("%p", "adsf"), "number expected, got 'asdf'");
+      assert.throws(() => fmt("%p", "adsf"), /^number expected/);
     });
     it('test', function () {
       assert.equal(fmt("%p", 0.5), "50.0%");
