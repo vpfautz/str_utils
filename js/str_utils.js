@@ -113,7 +113,7 @@ function format_percent(format, param) {
     if (typeof param !== "number") {
         throw "number expected, got '" + param + "'";
     }
-    var newFormat = JSON.parse(JSON.stringify(format));
+    var newFormat = clone(format);
     newFormat.type = "f";
     if (format.second === undefined) {
         newFormat.second = "1";
@@ -127,6 +127,9 @@ function format_percent(format, param) {
         newFormat.firsti = parseInt(newFormat.first);
     }
     return format_single(newFormat, param * 100) + "%";
+}
+function clone(o) {
+    return JSON.parse(JSON.stringify(o));
 }
 function format_integer(format, param) {
     if (typeof param !== "number") {
