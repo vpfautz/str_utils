@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { fmt } = require("..").default;
+const { fmt } = require("..");
 
 
 describe('Formatter', function () {
