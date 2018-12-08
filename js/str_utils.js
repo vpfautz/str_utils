@@ -68,7 +68,7 @@ function fmt(format) {
  */
 function format_single(format, param) {
     var _format = _slicedToArray(format, 4),
-        x = _format[0],
+        all = _format[0],
         first = _format[1],
         second = _format[2],
         typ = _format[3];
@@ -107,7 +107,7 @@ function format_single(format, param) {
         var _r = Math.floor(param).toString();
         if (second) {
             if (secondi < 0) {
-                throw "second parameter is negativ! '" + x + "'";
+                throw "second parameter is negativ! '" + all + "'";
             }
             _r = _r.padStart(secondi, "0");
         }
@@ -124,7 +124,7 @@ function format_single(format, param) {
         var _r2 = param.toFixed(6);
         if (second) {
             if (secondi < 0) {
-                throw "second parameter is negativ! '" + x + "'";
+                throw "second parameter is negativ! '" + all + "'";
             }
             _r2 = param.toFixed(secondi);
         }

@@ -54,7 +54,7 @@ export function fmt(format: string, ...params: any[]): string {
  * @param param
  */
 export function format_single(format: string[], param: any): string {
-  let [x, first, second, typ] = format;
+  let [all, first, second, typ] = format;
   let firsti = parseInt(first);
   let secondi = parseInt(second);
   typ = typ.toLowerCase();
@@ -90,7 +90,7 @@ export function format_single(format: string[], param: any): string {
     let r = Math.floor(param).toString();
     if (second) {
       if (secondi < 0) {
-        throw "second parameter is negativ! '" + x + "'";
+        throw "second parameter is negativ! '" + all + "'";
       }
       r = r.padStart(secondi, "0");
     }
@@ -109,7 +109,7 @@ export function format_single(format: string[], param: any): string {
     let r = param.toFixed(6);
     if (second) {
       if (secondi < 0) {
-        throw "second parameter is negativ! '" + x + "'";
+        throw "second parameter is negativ! '" + all + "'";
       }
       r = param.toFixed(secondi);
     }
