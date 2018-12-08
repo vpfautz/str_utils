@@ -10,9 +10,18 @@ export declare function printf(format: string, ...params: any[]): void;
  * @param params Parameters to insert in format
  */
 export declare function fmt(format: string, ...params: any[]): string;
+declare type FormatType = {
+    all: string;
+    first: string;
+    firsti: number;
+    second: string;
+    secondi: number;
+    type: string;
+};
 /**
  * Returns length of format indicator and formatted string.
  * @param format
  * @param param
  */
-export declare function format_single(format: string[], param: any): string;
+export declare function format_single(format: FormatType, param: any): string;
+export {};

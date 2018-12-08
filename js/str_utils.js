@@ -48,9 +48,10 @@ function fmt(format) {
             if (param_index >= (arguments.length <= 1 ? 0 : arguments.length - 1)) {
                 throw "Too less params given!";
             }
-            var t = format_single(form, arguments.length <= param_index + 1 ? undefined : arguments[param_index + 1]);
+            var currFormat = annotateFormat(form);
+            var t = format_single(currFormat, arguments.length <= param_index + 1 ? undefined : arguments[param_index + 1]);
             param_index++;
-            i += form[0].length;
+            i += currFormat.all.length;
             result += t;
         } else {
             result += format[i];
@@ -61,80 +62,91 @@ function fmt(format) {
     }
     return result;
 }
+function annotateFormat(format) {
+    var _format = _slicedToArray(format, 4),
+        all = _format[0],
+        first = _format[1],
+        second = _format[2],
+        type = _format[3];
+
+    var f = {
+        all: all,
+        first: first,
+        firsti: parseInt(first),
+        second: second,
+        secondi: parseInt(second),
+        type: type.toLowerCase()
+    };
+    return f;
+}
 /**
  * Returns length of format indicator and formatted string.
  * @param format
  * @param param
  */
 function format_single(format, param) {
-    var _format = _slicedToArray(format, 4),
-        all = _format[0],
-        first = _format[1],
-        second = _format[2],
-        typ = _format[3];
-
-    var firsti = parseInt(first);
-    var secondi = parseInt(second);
-    typ = typ.toLowerCase();
-    if (typ == "s") {
+    if (format.type == "s") {
         var r = param.toString();
-        if (first === undefined) {
+        if (format.first === undefined) {
             return r;
         } else {
-            return pad(r, firsti);
+            return pad(r, format.firsti);
         }
-    } else if (typ == "j") {
+    } else if (format.type == "j") {
         return JSON.stringify(param);
-    } else if (typ == "p") {
+    } else if (format.type == "p") {
         if (typeof param !== "number") {
             throw "number expected, got '" + param + "'";
         }
-        format[3] = "f";
-        if (second === undefined) {
-            format[2] = "1";
+        var newFormat = JSON.parse(JSON.stringify(format));
+        newFormat.type = "f";
+        if (format.second === undefined) {
+            newFormat.second = "1";
+            newFormat.secondi = 1;
         }
-        if (first !== undefined && firsti > 0) {
-            format[1] = (firsti - 1).toString();
-            if (first.startsWith("0")) {
-                format[1] = "0" + format[1];
+        if (format.first !== undefined && format.firsti > 0) {
+            newFormat.first = (format.firsti - 1).toString();
+            if (format.first.startsWith("0")) {
+                newFormat.first = "0" + newFormat.first;
             }
+            newFormat.firsti = parseInt(newFormat.first);
         }
-        return format_single(format, param * 100) + "%";
-    } else if (typ == "d" || typ == "i") {
+        return format_single(newFormat, param * 100) + "%";
+    } else if (format.type == "d" || format.type == "i") {
         if (typeof param !== "number") {
             throw "number expected, got '" + param + "'";
         }
         var _r = Math.floor(param).toString();
-        if (second) {
-            if (secondi < 0) {
-                throw "second parameter is negativ! '" + all + "'";
+        if (format.second) {
+            if (format.secondi < 0) {
+                throw "second parameter is negativ! '" + format.all + "'";
             }
-            _r = _r.padStart(secondi, "0");
+            _r = _r.padStart(format.secondi, "0");
         }
-        if (first) {
+        if (format.first) {
             // negativ padding is always " "
-            var padding = first.startsWith("0") ? "0" : " ";
-            _r = pad(_r, firsti, padding);
+            var padding = format.first.startsWith("0") ? "0" : " ";
+            _r = pad(_r, format.firsti, padding);
         }
         return _r;
-    } else if (typ == "f") {
+    } else if (format.type == "f") {
         if (typeof param !== "number") {
             throw "number expected, got '" + param + "'";
         }
         var _r2 = param.toFixed(6);
-        if (second) {
-            if (secondi < 0) {
-                throw "second parameter is negativ! '" + all + "'";
+        if (format.second) {
+            if (format.secondi < 0) {
+                throw "second parameter is negativ! '" + format.all + "'";
             }
-            _r2 = param.toFixed(secondi);
+            _r2 = param.toFixed(format.secondi);
         }
-        if (first) {
+        if (format.first) {
             // negativ padding is always " "
-            var _padding = first.startsWith("0") ? "0" : " ";
-            _r2 = pad(_r2, firsti, _padding);
+            var _padding = format.first.startsWith("0") ? "0" : " ";
+            _r2 = pad(_r2, format.firsti, _padding);
         }
         return _r2;
     } else {
-        throw "Unknown format, type: '" + typ + "'";
+        throw "Unknown format, type: '" + format.type + "'";
     }
 }
