@@ -13,6 +13,12 @@ describe('Formatter', function () {
     it('"" should be empty string', function () {
       assert.equal(fmt(""), "");
     });
+    it('unknown type', function () {
+      assert.throws(() => fmt("%y"), "Unknown format, type: 'y'");
+    });
+    it('too much parameters should fail', function () {
+      assert.throws(() => fmt("%d", 1, 2), /Too much params given!/);
+    });
     it('escapes', function () {
       assert.equal(fmt("%%"), "%");
       assert.equal(fmt("a%%b"), "a%b");
@@ -100,6 +106,9 @@ describe('Formatter', function () {
     });
   });
   describe('percentage', function () {
+    it('wrong param type', function () {
+      assert.throws(() => fmt("%p", "adsf"), "number expected, got 'asdf'");
+    });
     it('test', function () {
       assert.equal(fmt("%p", 0.5), "50.0%");
       assert.equal(fmt("%p", 0.1235), "12.3%");
