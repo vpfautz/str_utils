@@ -1,3 +1,6 @@
+import * as assert from "assert";
+
+
 function pad(s: string, n: number, padding = " "): string {
   return n < 0 ? s.padEnd(-n, padding) : s.padStart(n, padding);
 }
@@ -133,9 +136,7 @@ function format_integer(format: FormatType, param: any): string {
   }
   let r = Math.floor(param).toString();
   if (format.second) {
-    if (format.secondi < 0) {
-      throw "second parameter is negativ! '" + format.all + "'";
-    }
+    assert.ok(format.secondi >= 0, "second value should be positiv");
     r = r.padStart(format.secondi, "0");
   }
 
@@ -154,9 +155,7 @@ function format_float(format: FormatType, param: any): string {
   }
   let r = param.toFixed(6);
   if (format.second) {
-    if (format.secondi < 0) {
-      throw "second parameter is negativ! '" + format.all + "'";
-    }
+    assert.ok(format.secondi >= 0, "second value should be positiv");
     r = param.toFixed(format.secondi);
   }
 

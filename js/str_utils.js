@@ -9,6 +9,13 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 exports.printf = printf;
 exports.fmt = fmt;
 exports.format_single = format_single;
+
+var _assert = require("assert");
+
+var assert = _interopRequireWildcard(_assert);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function pad(s, n) {
     var padding = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : " ";
 
@@ -137,9 +144,7 @@ function format_integer(format, param) {
     }
     var r = Math.floor(param).toString();
     if (format.second) {
-        if (format.secondi < 0) {
-            throw "second parameter is negativ! '" + format.all + "'";
-        }
+        assert.ok(format.secondi >= 0, "second value should be positiv");
         r = r.padStart(format.secondi, "0");
     }
     if (format.first) {
@@ -155,9 +160,7 @@ function format_float(format, param) {
     }
     var r = param.toFixed(6);
     if (format.second) {
-        if (format.secondi < 0) {
-            throw "second parameter is negativ! '" + format.all + "'";
-        }
+        assert.ok(format.secondi >= 0, "second value should be positiv");
         r = param.toFixed(format.secondi);
     }
     if (format.first) {

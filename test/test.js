@@ -68,6 +68,9 @@ describe('Formatter', function () {
     });
   });
   describe('float pattern', function () {
+    it('wrong param type', function () {
+      assert.throws(() => fmt("%f", "adsf"), "number expected, got 'asdf'");
+    });
     it('one float', function () {
       assert.equal(fmt("%f", 1.5), "1.500000");
       assert.equal(fmt("%.2f", 1.5), "1.50");
