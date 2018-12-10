@@ -1,8 +1,10 @@
 import * as assert from "assert";
+const stringWidth = require('string-width');
 
 
 function pad(s: string, n: number, padding = " "): string {
-  return n < 0 ? s.padEnd(-n, padding) : s.padStart(n, padding);
+  let norm = Math.abs(n) + s.length - stringWidth(s);
+  return n < 0 ? s.padEnd(norm, padding) : s.padStart(norm, padding);
 }
 
 /**

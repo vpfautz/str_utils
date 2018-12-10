@@ -3,6 +3,18 @@ const { fmt } = require("..");
 
 
 describe('Formatter', function () {
+  describe("coloring and utf8", function () {
+    it('utf8 should work', function () {
+      let t = "¯\\_(ツ)_/¯";
+      assert.equal("  " + t, fmt("%12s", t));
+      assert.equal(t + "  ", fmt("%-12s", t));
+    });
+    it('color codes should work', function () {
+      let t = "\x1b[31ma\x1b[39m";
+      assert.equal("  " + t, fmt("%3s", t));
+      assert.equal(t + "  ", fmt("%-3s", t));
+    });
+  });
   describe('no parameters', function () {
     it('"asdf" should be adsf', function () {
       assert.equal(fmt("asdf"), "asdf");

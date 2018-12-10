@@ -16,10 +16,12 @@ var assert = _interopRequireWildcard(_assert);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+var stringWidth = require('string-width');
 function pad(s, n) {
     var padding = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : " ";
 
-    return n < 0 ? s.padEnd(-n, padding) : s.padStart(n, padding);
+    var norm = Math.abs(n) + s.length - stringWidth(s);
+    return n < 0 ? s.padEnd(norm, padding) : s.padStart(norm, padding);
 }
 /**
  * Formats and prints a string like in python.

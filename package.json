@@ -38,5 +38,8 @@
     "nyc": "^11.2.1",
     "typescript": "^2.8.3",
     "@types/node": "^10.12.12"
+  },
+  "dependencies": {
+    "string-width": "^2.1.1"
   }
 }
