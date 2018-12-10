@@ -28,9 +28,9 @@ describe('Formatter', function () {
     it('unknown type', function () {
       assert.throws(() => fmt("%y"), /^Invalid format/);
     });
-    it('too much parameters should fail', function () {
-      assert.throws(() => fmt("%d", 1, 2), /Too much params given!/);
-      assert.throws(() => fmt("", 1), /Too much params given!/);
+    it('too many parameters should fail', function () {
+      assert.throws(() => fmt("%d", 1, 2), /Too many params given!/);
+      assert.throws(() => fmt("", 1), /Too many params given!/);
     });
     it('too less parameters should fail', function () {
       assert.throws(() => fmt("%d %d", 1), /Too less params given!/);

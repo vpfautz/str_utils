@@ -68,7 +68,7 @@ function fmt(format) {
         }
     }
     if (param_index < (arguments.length <= 1 ? 0 : arguments.length - 1)) {
-        throw "Too much params given!";
+        throw "Too many params given!";
     }
     return result;
 }

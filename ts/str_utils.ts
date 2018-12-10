@@ -50,7 +50,7 @@ export function fmt(format: string, ...params: any[]): string {
     }
   }
   if (param_index < params.length) {
-    throw "Too much params given!";
+    throw "Too many params given!";
   }
   return result;
 }
