@@ -19,7 +19,7 @@ declare type FormatType = {
     type: string;
 };
 /**
- * Returns length of format indicator and formatted string.
+ * Apply a single format to a parameter.
  * @param format
  * @param param
  */
