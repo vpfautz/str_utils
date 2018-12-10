@@ -86,6 +86,8 @@ describe('Formatter', function () {
       assert.throws(() => fmt("%f", "adsf"), /^number expected/);
     });
     it('one float', function () {
+      assert.equal(fmt("%.1f", 1.23), "1.2");
+      assert.equal(fmt("%.0f", 1.23), "1");
       assert.equal(fmt("%f", 1.5), "1.500000");
       assert.equal(fmt("%.2f", 1.5), "1.50");
       assert.equal(fmt("%06.2f", 1.5), "001.50");
