@@ -34,14 +34,19 @@ export function fmt(format: string, ...params: any[]): string {
       }
       let form: string[] = format.slice(i + 1).match(/^(-?\d+)?(?:\.(\d+))?([sfdijp])/i);
       if (form === null) {
-        throw "Invalid format: " + format.slice(i, i + 6);
+        throw new FormatError(format, params, "Invalid format: " + format.slice(i, i + 6));
       }
 
       if (param_index >= params.length) {
-        throw "Too less params given!";
+        throw new FormatError(format, params, "Too less params given!");
       }
       let currFormat = annotate_format(form);
-      let t = format_single(currFormat, params[param_index]);
+      let t;
+      try {
+        t = format_single(currFormat, params[param_index]);
+      } catch (error) {
+        throw new FormatError(format, params, error);
+      }
       param_index++;
       i += currFormat.all.length;
       result += t;
@@ -50,7 +55,7 @@ export function fmt(format: string, ...params: any[]): string {
     }
   }
   if (param_index < params.length) {
-    throw "Too many params given!";
+    throw new FormatError(format, params, "Too many params given!");
   }
   return result;
 }
@@ -170,4 +175,15 @@ function format_float(format: FormatType, param: any): string {
   }
 
   return r;
+}
+
+class FormatError extends Error {
+  format: string;
+  params: any[];
+  constructor(format: string, params: any[], msg: string) {
+    const params_format = params.map(e => new String(e).toString()).join(", ");
+    super(msg + " in '" + format + "' [" + params_format + "]");
+    this.format = format;
+    this.params = params;
+  }
 }
