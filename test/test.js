@@ -8,6 +8,10 @@ describe('Formatter', function () {
       assert.equal("null", fmt("%s", null));
       assert.equal("undefined", fmt("%s", undefined));
     });
+    it('handles functions and objects correctly', function () {
+      assert.equal("[object Object]", fmt("%s", {a:1,b:2}));
+      assert.equal("x => x * x", fmt("%s", x => x * x));
+    });
   });
   describe("coloring and utf8", function () {
     it('utf8 should work', function () {
