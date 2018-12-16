@@ -3,6 +3,12 @@ const { fmt } = require("..");
 
 
 describe('Formatter', function () {
+  describe("string format of non string values", function () {
+    it('handles null and undefined correctly', function () {
+      assert.equal("null", fmt("%s", null));
+      assert.equal("undefined", fmt("%s", undefined));
+    });
+  });
   describe("coloring and utf8", function () {
     it('utf8 should work', function () {
       let t = "¯\\_(ツ)_/¯";

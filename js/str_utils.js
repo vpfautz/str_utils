@@ -129,11 +129,18 @@ function format_single(format, param) {
     }
 }
 function format_string(format, param) {
-    var r = param.toString();
-    if (format.first === undefined) {
-        return r;
+    var param_str = "";
+    if (param === undefined) {
+        param_str = "undefined";
+    } else if (param === null) {
+        param_str = "null";
     } else {
-        return pad(r, format.firsti);
+        param_str = param.toString();
+    }
+    if (format.first === undefined) {
+        return param_str;
+    } else {
+        return pad(param_str, format.firsti);
     }
 }
 function format_percent(format, param) {

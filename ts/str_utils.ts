@@ -107,11 +107,18 @@ export function format_single(format: FormatType, param: any): string {
 }
 
 function format_string(format: FormatType, param: any): string {
-  let r = param.toString();
-  if (format.first === undefined) {
-    return r;
+  let param_str = "";
+  if (param === undefined) {
+    param_str = "undefined";
+  } else if (param === null) {
+    param_str = "null";
   } else {
-    return pad(r, format.firsti);
+    param_str = param.toString();
+  }
+  if (format.first === undefined) {
+    return param_str;
+  } else {
+    return pad(param_str, format.firsti);
   }
 }
 
